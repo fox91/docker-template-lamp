@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  db:
+    # image: mariadb:latest
+    # image: mysql:latest
+    image: percona:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
+      - MYSQL_DATABASE=my_db
+      - MYSQL_USER=my_user
+      - MYSQL_PASSWORD=my-user-pw
+    networks:
+      - default
+    volumes:
+      - ./conf/mysql_config/charset.cnf:/etc/mysql/conf.d/charset.cnf:ro
+      - ./conf/mysql_initdb:/docker-entrypoint-initdb.d:ro
+      - db_data:/var/lib/mysql
+      - db_log:/var/log/mysql
+
+volumes:
+  db_data:
+  db_log:
