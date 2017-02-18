@@ -30,6 +30,23 @@ services:
     ports:
       - "32770:80"
 
+  web:
+    build: ./my-web-app/
+    environment:
+      - MYSQL_PORT_3306_TCP_ADDR=mysql
+      - MYSQL_PORT_3306_TCP_PORT=3306
+      - MYSQL_ENV_MYSQL_DATABASE=my_db
+      - MYSQL_ENV_MYSQL_USER=my_user
+      - MYSQL_ENV_MYSQL_PASSWORD=my-user-pw
+    links:
+      - db:mysql
+    networks:
+      - default
+    ports:
+      - "32771:80"
+    volumes:
+      - ./my-web-app:/var/www:ro
+
 volumes:
   db_data:
   db_log:
