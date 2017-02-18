@@ -18,6 +18,18 @@ services:
       - db_data:/var/lib/mysql
       - db_log:/var/log/mysql
 
+  pma:
+    image: fox91/phpmyadmin:4.6-apache
+    environment:
+      - MYSQL_PORT_3306_TCP_ADDR=mysql
+      - MYSQL_PORT_3306_TCP_PORT=3306
+    links:
+      - db:mysql
+    networks:
+      - default
+    ports:
+      - "32770:80"
+
 volumes:
   db_data:
   db_log:
