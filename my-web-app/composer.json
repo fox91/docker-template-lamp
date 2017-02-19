@@ -1,0 +1,14 @@
+{
+    "name": "my-nick/my-web-app",
+    "description": "My web app",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "My Name",
+            "email": "my@email.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    }
+}

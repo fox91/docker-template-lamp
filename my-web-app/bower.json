@@ -1,0 +1,22 @@
+{
+  "name": "my-web-app",
+  "authors": [
+    "My Name <my@email.com>"
+  ],
+  "description": "My web app",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
