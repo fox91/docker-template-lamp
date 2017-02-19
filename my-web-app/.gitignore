@@ -1,11 +1,19 @@
 
-# Created by https://www.gitignore.io/api/sublimetext,bower
+# Created by https://www.gitignore.io/api/sublimetext,composer,bower
 
 ### Bower ###
 bower_components
 .bower-cache
 .bower-registry
 .bower-tmp
+
+### Composer ###
+composer.phar
+/vendor/
+
+# Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
+# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+# composer.lock
 
 ### SublimeText ###
 # cache files for sublime text
@@ -39,4 +47,4 @@ bh_unicode_properties.cache
 # https://packagecontrol.io/packages/sublime-github
 GitHub.sublime-settings
 
-# End of https://www.gitignore.io/api/sublimetext,bower
+# End of https://www.gitignore.io/api/sublimetext,composer,bower
