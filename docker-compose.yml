@@ -1,51 +1,44 @@
-version: "3"
+version: "3.1"
 
 services:
   db:
-    # image: mariadb:latest
-    # image: mysql:latest
     image: percona:latest
     environment:
-      - MYSQL_ROOT_PASSWORD=my-secret-pw
-      - MYSQL_DATABASE=my_db
-      - MYSQL_USER=my_user
-      - MYSQL_PASSWORD=my-user-pw
-    networks:
-      - default
+      MYSQL_ROOT_PASSWORD: "my-secret-pw"
+      MYSQL_DATABASE: "my_db"
+      MYSQL_USER: "my_user"
+      MYSQL_PASSWORD: "my-user-pw"
     volumes:
       - ./conf/mysql_config/charset.cnf:/etc/mysql/conf.d/charset.cnf:ro
       - ./conf/mysql_initdb:/docker-entrypoint-initdb.d:ro
       - db_data:/var/lib/mysql
       - db_log:/var/log/mysql
+    restart: on-failure
 
   pma:
-    image: fox91/phpmyadmin:4.6-apache
-    environment:
-      - MYSQL_PORT_3306_TCP_ADDR=mysql
-      - MYSQL_PORT_3306_TCP_PORT=3306
+    image: fox91/phpmyadmin:stable
     links:
       - db:mysql
-    networks:
-      - default
     ports:
       - "32770:80"
+    restart: on-failure
 
   web:
     build: ./my-web-app/
     environment:
-      - MYSQL_PORT_3306_TCP_ADDR=mysql
-      - MYSQL_PORT_3306_TCP_PORT=3306
-      - MYSQL_ENV_MYSQL_DATABASE=my_db
-      - MYSQL_ENV_MYSQL_USER=my_user
-      - MYSQL_ENV_MYSQL_PASSWORD=my-user-pw
+      MYSQL_PORT_3306_TCP_ADDR: "mysql"
+      MYSQL_PORT_3306_TCP_PORT: "3306"
+      MYSQL_ENV_MYSQL_DATABASE: "my_db"
+      MYSQL_ENV_MYSQL_USER: "my_user"
+      MYSQL_ENV_MYSQL_PASSWORD: "my-user-pw"
     links:
       - db:mysql
-    networks:
-      - default
     ports:
       - "32771:80"
     volumes:
-      - ./my-web-app:/var/www:ro
+      - ./conf/apache:/etc/apache2/sites-enabled:ro
+      - ./my-web-app:/var/www
+    restart: on-failure
 
 volumes:
   db_data:
